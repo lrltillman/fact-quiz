@@ -1,25 +1,24 @@
 var startButton = document.querySelector(".start-button"); //start button
 var timerCount = document.querySelector(".timer-count"); //timer number
-var scoreBoard = document.querySelector(".scoreboard"); //scoreboard as a whole
+var scoreBoard = document.querySelector("#scoreboard"); //scoreboard as a whole
 var finalScore = document.querySelector(".score"); // user score
-var quizDisplay = document.querySelector(".quiz"); //quiz (empty div tag)
+var quizDisplay = document.querySelector("#quiz"); //quiz (empty div tag)
+var questionDisplay = document.querySelector("#question");
+var optionsDisplay = document.querySelector("#options");
 var secondsLeft = 120;
 var timerInterval;
+var qIndex = 0;
 var quizQuestions = [
     {
-        id: 0,
+        // id: 0,
         question: "What color is the sky?",
-        wrong: "red",
-        wrong: "green",
-        wrong: "yellow",
+        options: ["red", "green", "yellow", "blue"],
         correct: "blue"
     },
     {
         id: 1,
         question: "What is my dog's name?",
-        wrong: "Martin",
-        wrong: "Biscuit",
-        wrong: "Brenda",
+        options: ["Martin", "Biscuit", "Brenda", "Nigel"],
         correct: "Nigel"
     },
     {
@@ -42,19 +41,77 @@ function startQuiz() {
         startButton.style.visibility = 'hidden';
     }
 
+    quizDisplay.removeAttribute("class");
+
     timerInterval = setInterval(function () {
         secondsLeft--;
         timerCount.textContent = secondsLeft;
 
+        //for loop
+
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
 
+            //scoreBoard
         }
     }, 1000)
+
+    populateQuestion();
+
+};
+
+function populateQuestion() {
+    var curQuestion = quizQuestions[qIndex]
+    questionDisplay.textContent = curQuestion.question;
+
+    optionsDisplay.innerHTML = "";
+
+    for (let i = 0; i < curQuestion.options.length; i++) {
+        const option = curQuestion.options[i];
+
+        var btnEl = document.createElement("button");
+        btnEl.setAttribute("class", "option");
+        btnEl.setAttribute("value", option);
+        btnEl.textContent = i + 1 + ". " + option;
+        optionsDisplay.appendChild(btnEl);
+
+
+
+    }
+
 }
 
+// event listener for option buttons 
+
+
+
+function userGuess(event) {
+    var buttonEl = event.target;
+
+    if (!buttonEl.matches(".option")) {
+        return
+    }
+
+    if (buttonEl.value !== quizQuestions[qIndex].correct) {
+        //deduct time secondsLeft -5
+        if (secondsLeft < 0) {
+            secondsLeft = 0;
+        }
+        // update time display
+    };
+    qIndex++;
+
+
+    //if statement to compare  quizquestions length = qindex || timer is at 0
+    // scoreboard function
+
+    // else
+    //popukate question
+}
+
+
 function scoreBoard() {
-    scoreBoard.style.visibility = 'visible'
+    scoreBoard.removeAttribute("class");
 }
 
 
@@ -66,6 +123,7 @@ function scoreBoard() {
 // function changeDisplay() { 
 // }
 
+// for loop to process an array
 
 
 // if (userAnswer === incorrect)
@@ -86,12 +144,42 @@ function scoreBoard() {
         -if incorrect, store data and subtract 5 seconds from timer
     d) will need to access array of questions
 4. create a data save value to auto save each answer
-5. a scoreboard and textbox where the user can save their initials 
-
-notes:
+5. a scoreboard and textbox where the user can save their initials and score
 
 use hidden/visible elements to control what is on the page
 
-create div and class/ids as needed on html, will need textbox for the end. can do by using createElement.
+GIVEN I am taking a code quiz
+WHEN I click the start button
+THEN a timer starts and I am presented with a question
+WHEN I answer a question
+THEN I am presented with another question
+WHEN I answer a question incorrectly
+THEN time is subtracted from the clock
+WHEN all questions are answered or the timer reaches 0
+THEN the game is over
+WHEN the game is over
+THEN I can save my initials and my score   */
 
-if correct, quizScore + 1 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
