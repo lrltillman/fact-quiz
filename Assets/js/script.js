@@ -1,4 +1,6 @@
 var startButton = document.querySelector(".start-button"); //start button
+var saveButton = document.querySelector("#save-button");
+var startAgain = document.querySelector("#start-again");
 var timerCount = document.querySelector(".timer-count"); //timer number
 var scoreBoard = document.querySelector("#scoreboard"); //scoreboard as a whole
 var finalScore = document.querySelector("#score"); // user score
@@ -85,24 +87,21 @@ var quizQuestions = [
         options: ["Home Alone", "Elf", "Die Hard", "It's a Wonderful Life"],
         correct: "Home Alone"
     },
-
 ]
 
-
 //TO DO STILL:
-//need to correct textContent error in endQuiz function
-//  -and finish structuring the scoreboard in css and dynamically 
-//need to subtract time from timer when answer is not correct
-//need to set condition to avoid miltiple scoreboards from populating
-//need to create way to save data
+// finish structuring the scoreboard in css and dynamically 
+// need to create way to save data
 //  a) need to create button dynamically to "save score"
-//  b) need to display initals and score 
-//  b) review local storage units and notes
+//  b) need to display initals and score once button pressed
+//  c) try again button
+//  d) review local storage units and notes
 
 startButton.addEventListener("click", startQuiz)
 
-
 function startQuiz() {
+
+
     if (startButton.style.visibility = 'visible') {
         startButton.style.visibility = 'hidden';
     }
@@ -112,8 +111,6 @@ function startQuiz() {
     timerInterval = setInterval(function () {
         secondsLeft--;
         timerCount.textContent = secondsLeft;
-
-
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
@@ -158,6 +155,8 @@ function userChoice(event) {
 
         if (userGuess = lastAnswer) {
             pointsTally++;
+            clearInterval(timerInterval);
+
         }
 
         endQuiz();
@@ -166,13 +165,12 @@ function userChoice(event) {
 
         if (userGuess.value !== rightAnswer) {
             console.log("Wrong!")
-
-            secondsLeft - 10;
+            secondsLeft -= 10;
 
             if (secondsLeft < 0) {
                 secondsLeft = 0;
-
             }
+
         }
 
         if (userGuess.value === rightAnswer) {
@@ -188,39 +186,22 @@ function userChoice(event) {
 
 function endQuiz() {
 
-    console.log("the end quiz function works!");
-    console.log(pointsTally);
-
-    var scoreText = `End of quiz! Your score is ${pointsTally}/15!`;
+    var scoreText = `End of quiz! Your score is ${pointsTally}/15, with ${secondsLeft} seconds remaining!`;
     var initialDiv = document.querySelector("#initials");
     var initialBox = document.createElement("input");
     var timerBox = document.querySelector("#timer-container");
 
     timerBox.setAttribute("class", "hide");
-
     scoreBoard.removeAttribute("class");
-    // finalScore.textContent = scoreText; //error??
-
-
+    finalScore.textContent = scoreText.toString();
     initialDiv.appendChild(initialBox);
     initialBox.setAttribute("class", "save-initials");
+
+    console.log("the end quiz function works!");
+    console.log(pointsTally);
+
 };
 
-
-
-
-
-
-
-
-// if (!userGuess.matches(".option")) {
-//     return
-// }
-
-
-
-// if (userAnswer === incorrect)
-//    secondsLeft - 5
 
 
 /* 

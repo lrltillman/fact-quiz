@@ -88,3 +88,21 @@ span.timer-count {
     border-radius: 10px;
     padding: 20px;
 }
+
+#initials {
+    margin-bottom: 10px;
+}
+
+#save-button {
+    background-color: rgb(31, 47, 36);
+    color: rgb(184, 199, 183);
+    border: 5px solid rgb(145, 170, 143);
+    border-radius: 10px;
+}
+
+#start-again {
+    background-color: rgb(31, 47, 36);
+    color: rgb(184, 199, 183);
+    border: 5px solid rgb(145, 170, 143);
+    border-radius: 10px;
+}
