@@ -9,3 +9,6 @@
 * THEN the game is over
 * WHEN the game is over
 * THEN I can save my initials and my score
+
+
+### Assisted by tutor Sandy Smith to complete assignment. 

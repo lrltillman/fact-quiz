@@ -27,7 +27,7 @@ body {
 
 .start-button {
     padding: 10px;
-    margin-top: 15rem;
+    margin-top: 10rem;
     background-color: rgb(31, 47, 36);
     color: rgb(184, 199, 183);
     border: 5px solid rgb(145, 170, 143);
@@ -45,7 +45,7 @@ body {
     border: 3px solid rgb(31, 47, 36);
     border-radius: 10px;
     padding: 15px;
-    margin-top: 60rem;
+    margin-top: 50rem;
     position: fixed;
 }
 
@@ -58,13 +58,32 @@ span.timer-count {
     display: none;
 }
 
-.quiz {
+#quiz {
     border: 5px solid rgb(31, 47, 36);
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: -100px;
+
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 10rem;
+    padding: 10px;
+}
+
+.option {
+    background-color: rgb(31, 47, 36);
+    color: rgb(184, 199, 183);
+    border: 5px solid rgb(145, 170, 143);
     border-radius: 10px;
 }
 
 .scoreboard {
-    visibility: hidden;
+
     border: 5px solid rgb(31, 47, 36);
     border-radius: 10px;
     padding: 20px;

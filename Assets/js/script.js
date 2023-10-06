@@ -10,31 +10,87 @@ var timerInterval;
 var qIndex = 0;
 var quizQuestions = [
     {
-        // id: 0,
-        question: "What color is the sky?",
-        options: ["red", "green", "yellow", "blue"],
-        correct: "blue"
+        question: "What 90s boy band member bought Myspace in 2011?",
+        options: ["Nick Lachey", "Shawn Stockman", "AJ McLean", "Justin Timberlake"],
+        correct: "Justin Timberlake"
     },
     {
-        id: 1,
-        question: "What is my dog's name?",
-        options: ["Martin", "Biscuit", "Brenda", "Nigel"],
-        correct: "Nigel"
+        question: "What's the heaviest organ in the human body?",
+        options: ["Skin", "Liver", "Skeleton", "Brain"],
+        correct: "Liver"
     },
     {
-        id: 2,
-        question: "What state is Minneapolis in?",
-        wrong: "Ohio",
-        wrong: "New York",
-        wrong: "Texas",
-        correct: "Minnesota"
-    }
+        question: "Which ocean is the Bermuda Triangle in?",
+        options: ["Caribbean Ocean", "Pacific Ocean", "Indian Ocean", "Atlantic Ocean"],
+        correct: "Atlantic Ocean"
+    },
+    {
+        question: "On average, how many seeds are on the outside of a strawberry?",
+        options: ["50", "100", "200", "500"],
+        correct: "200"
+    },
+    {
+        question: "What is the highest-grossing video game franchise to date?",
+        options: ["Mario", "Call of Duty", "Pokemon", "Grand Theft Auto"],
+        correct: "Pokemon"
+    },
+    {
+        question: "Mycology is the scientific study of what?",
+        options: ["Fungi", "Cancer Cells", "Trees", "Flowers"],
+        correct: "Fungi"
+    },
+    {
+        question: "The first vaccine was for which disease?",
+        options: ["Polio", "Measles", "Chickenpox", "Smallpox"],
+        correct: "Smallpox"
+    },
+    {
+        question: "Which sea creature has three hearts?",
+        options: ["Jellyfish", "Octopus", "Shark", "Stingray"],
+        correct: "Octopus"
+    },
+    {
+        question: "Where did the croissant originate?",
+        options: ["Austria", "France", "Turkey", "Egypt"],
+        correct: "Austria"
+    },
+    {
+        question: "Which animal kills the most humans annually?",
+        options: ["Mosquitos", "Sharks", "Alligators", "Bears"],
+        correct: "Mosquitos"
+    },
+    {
+        question: "Arachibutyrophobia is the fear of what sticking to the roof of your mouth?",
+        options: ["Saltwater Taffy", "Bread", "Honey", "Peanut Butter"],
+        correct: "Peanut Butter"
+    },
+    {
+        question: "Agar-agar is a jelly obtained by boiling which of these?",
+        options: ["Horse Hooves", "Seaweed", "Tapioca", "Collagen"],
+        correct: "Seaweed"
+    },
+    {
+        question: "In what country was The Lord of the Rings trilogy shot?",
+        options: ["Greenland", "Ireland", "New Zealand", "Croatia"],
+        correct: "New Zealand"
+    },
+    {
+        question: "Which animal kills the most humans annually?",
+        options: ["Mosquitos", "Sharks", "Alligators", "Bears"],
+        correct: "Mosquitos"
+    },
+    {
+        question: "Which animal kills the most humans annually?",
+        options: ["Mosquitos", "Sharks", "Alligators", "Bears"],
+        correct: "Mosquitos"
+    },
+
 ]
 
 
 
 startButton.addEventListener("click", startQuiz)
-//need to populate function that brings a question 
+
 
 function startQuiz() {
     if (startButton.style.visibility = 'visible') {
@@ -47,14 +103,14 @@ function startQuiz() {
         secondsLeft--;
         timerCount.textContent = secondsLeft;
 
-        //for loop
+
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
 
-            //scoreBoard
+            //scoreBoard()
         }
-    }, 1000)
+    }, 1000);
 
     populateQuestion();
 
@@ -74,56 +130,85 @@ function populateQuestion() {
         btnEl.setAttribute("value", option);
         btnEl.textContent = i + 1 + ". " + option;
         optionsDisplay.appendChild(btnEl);
-
-
-
     }
-
 }
 
-// event listener for option buttons 
+optionsDisplay.addEventListener("click", userChoice)
 
 
+function userChoice(event) {
+    var userGuess = event.target;
+    var curQuestion = quizQuestions[qIndex];
+    var rightAnswer = curQuestion.correct;
 
-function userGuess(event) {
-    var buttonEl = event.target;
+    console.log("This event is functional");
 
-    if (!buttonEl.matches(".option")) {
-        return
-    }
+    if (userGuess.value !== rightAnswer) {
+        console.log("Wrong!")
 
-    if (buttonEl.value !== quizQuestions[qIndex].correct) {
-        //deduct time secondsLeft -5
+        secondsLeft - 10;
         if (secondsLeft < 0) {
             secondsLeft = 0;
+
         }
-        // update time display
-    };
-    qIndex++;
+    }
+
+    if (userGuess.value === rightAnswer) {
+
+        console.log("Correct!")
+        qIndex++;
+        populateQuestion();
+
+    }
 
 
-    //if statement to compare  quizquestions length = qindex || timer is at 0
-    // scoreboard function
 
-    // else
-    //popukate question
+
 }
 
 
-function scoreBoard() {
-    scoreBoard.removeAttribute("class");
-}
 
 
 
 
 
 
-
-// function changeDisplay() { 
+// if (!userGuess.matches(".option")) {
+//     return
 // }
 
-// for loop to process an array
+// 
+//     // update time display
+// };
+
+// 
+
+
+//     if (quizQuestions.length === qIndex || secondsLeft === 0) {
+//         scoreBoard();
+//     } else {
+//         populateQuestion();
+//     }
+
+
+
+
+
+
+
+
+// function scoreBoard() {
+//     var score = document.querySelector(".score");
+//     score.textContent(secondsLeft);
+//     scoreBoard.removeAttribute("class");
+
+//     var initialDiv = document.querySelector("#initials");
+//     var initialBox = document.createElement("input");
+
+//     initialDiv.appendChild(initialBox);
+//     initialBox.setAttribute("class", "save-initials");
+// }
+
 
 
 // if (userAnswer === incorrect)
@@ -140,13 +225,11 @@ function scoreBoard() {
     a) start with just 2 or three questions
     b) need to create a function for populating a question
     c) use event bubbling for a click on an answer 
-        -if correct, store data
-        -if incorrect, store data and subtract 5 seconds from timer
+        -if correct, next question
+        -if incorrect, subtract 10 seconds from timer
     d) will need to access array of questions
 4. create a data save value to auto save each answer
 5. a scoreboard and textbox where the user can save their initials and score
-
-use hidden/visible elements to control what is on the page
 
 GIVEN I am taking a code quiz
 WHEN I click the start button
@@ -159,27 +242,4 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score   */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
