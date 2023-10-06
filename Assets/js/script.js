@@ -1,7 +1,8 @@
 var startButton = document.querySelector(".start-button"); //start button
 var timerCount = document.querySelector(".timer-count"); //timer number
 var scoreBoard = document.querySelector("#scoreboard"); //scoreboard as a whole
-var finalScore = document.querySelector(".score"); // user score
+var finalScore = document.querySelector("#score"); // user score
+var pointsTally = 0; //keeps track of correct answers
 var quizDisplay = document.querySelector("#quiz"); //quiz (empty div tag)
 var questionDisplay = document.querySelector("#question");
 var optionsDisplay = document.querySelector("#options");
@@ -75,19 +76,28 @@ var quizQuestions = [
         correct: "New Zealand"
     },
     {
-        question: "Which animal kills the most humans annually?",
-        options: ["Mosquitos", "Sharks", "Alligators", "Bears"],
-        correct: "Mosquitos"
+        question: "What is France's national dog breed?",
+        options: ["Wheaten Terrier", "French Bulldog", "Bichon Frise", "Poodle"],
+        correct: "Poodle"
     },
     {
-        question: "Which animal kills the most humans annually?",
-        options: ["Mosquitos", "Sharks", "Alligators", "Bears"],
-        correct: "Mosquitos"
+        question: "What is the highest-grossing holiday movie of all time?",
+        options: ["Home Alone", "Elf", "Die Hard", "It's a Wonderful Life"],
+        correct: "Home Alone"
     },
 
 ]
 
 
+//TO DO STILL:
+//need to correct textContent error in endQuiz function
+//  -and finish structuring the scoreboard in css and dynamically 
+//need to subtract time from timer when answer is not correct
+//need to set condition to avoid miltiple scoreboards from populating
+//need to create way to save data
+//  a) need to create button dynamically to "save score"
+//  b) need to display initals and score 
+//  b) review local storage units and notes
 
 startButton.addEventListener("click", startQuiz)
 
@@ -107,8 +117,9 @@ function startQuiz() {
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
+            quizDisplay.setAttribute("class", "hide")
+            endQuiz();
 
-            //scoreBoard()
         }
     }, 1000);
 
@@ -140,31 +151,60 @@ function userChoice(event) {
     var userGuess = event.target;
     var curQuestion = quizQuestions[qIndex];
     var rightAnswer = curQuestion.correct;
+    var lastAnswer = quizQuestions[14].correct;
 
-    console.log("This event is functional");
+    if (qIndex === 14 || secondsLeft === 0) {
+        quizDisplay.setAttribute("class", "hide");
 
-    if (userGuess.value !== rightAnswer) {
-        console.log("Wrong!")
+        if (userGuess = lastAnswer) {
+            pointsTally++;
+        }
 
-        secondsLeft - 10;
-        if (secondsLeft < 0) {
-            secondsLeft = 0;
+        endQuiz();
+
+    } else {
+
+        if (userGuess.value !== rightAnswer) {
+            console.log("Wrong!")
+
+            secondsLeft - 10;
+
+            if (secondsLeft < 0) {
+                secondsLeft = 0;
+
+            }
+        }
+
+        if (userGuess.value === rightAnswer) {
+
+            console.log("Correct!")
+            pointsTally++;
+            qIndex++;
+            populateQuestion();
 
         }
     }
+};
 
-    if (userGuess.value === rightAnswer) {
+function endQuiz() {
 
-        console.log("Correct!")
-        qIndex++;
-        populateQuestion();
+    console.log("the end quiz function works!");
+    console.log(pointsTally);
 
-    }
+    var scoreText = `End of quiz! Your score is ${pointsTally}/15!`;
+    var initialDiv = document.querySelector("#initials");
+    var initialBox = document.createElement("input");
+    var timerBox = document.querySelector("#timer-container");
+
+    timerBox.setAttribute("class", "hide");
+
+    scoreBoard.removeAttribute("class");
+    // finalScore.textContent = scoreText; //error??
 
 
-
-
-}
+    initialDiv.appendChild(initialBox);
+    initialBox.setAttribute("class", "save-initials");
+};
 
 
 
@@ -175,38 +215,6 @@ function userChoice(event) {
 
 // if (!userGuess.matches(".option")) {
 //     return
-// }
-
-// 
-//     // update time display
-// };
-
-// 
-
-
-//     if (quizQuestions.length === qIndex || secondsLeft === 0) {
-//         scoreBoard();
-//     } else {
-//         populateQuestion();
-//     }
-
-
-
-
-
-
-
-
-// function scoreBoard() {
-//     var score = document.querySelector(".score");
-//     score.textContent(secondsLeft);
-//     scoreBoard.removeAttribute("class");
-
-//     var initialDiv = document.querySelector("#initials");
-//     var initialBox = document.createElement("input");
-
-//     initialDiv.appendChild(initialBox);
-//     initialBox.setAttribute("class", "save-initials");
 // }
 
 
