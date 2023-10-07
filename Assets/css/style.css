@@ -93,6 +93,12 @@ span.timer-count {
     margin-bottom: 10px;
 }
 
+.save-initials {
+    border: 2px solid rgb(145, 170, 143);
+    outline: 2px solid rgb(31, 47, 36);
+    border-radius: 7px;
+}
+
 #save-button {
     background-color: rgb(31, 47, 36);
     color: rgb(184, 199, 183);

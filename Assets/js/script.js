@@ -10,6 +10,7 @@ var questionDisplay = document.querySelector("#question");
 var optionsDisplay = document.querySelector("#options");
 var secondsLeft = 120;
 var timerInterval;
+var initialBox;
 var qIndex = 0;
 var quizQuestions = [
     {
@@ -101,7 +102,6 @@ startButton.addEventListener("click", startQuiz)
 
 function startQuiz() {
 
-
     if (startButton.style.visibility = 'visible') {
         startButton.style.visibility = 'hidden';
     }
@@ -116,18 +116,16 @@ function startQuiz() {
             clearInterval(timerInterval);
             quizDisplay.setAttribute("class", "hide")
             endQuiz();
-
         }
     }, 1000);
 
     populateQuestion();
-
 };
 
 function populateQuestion() {
     var curQuestion = quizQuestions[qIndex]
-    questionDisplay.textContent = curQuestion.question;
 
+    questionDisplay.textContent = curQuestion.question;
     optionsDisplay.innerHTML = "";
 
     for (let i = 0; i < curQuestion.options.length; i++) {
@@ -143,7 +141,6 @@ function populateQuestion() {
 
 optionsDisplay.addEventListener("click", userChoice)
 
-
 function userChoice(event) {
     var userGuess = event.target;
     var curQuestion = quizQuestions[qIndex];
@@ -156,7 +153,6 @@ function userChoice(event) {
         if (userGuess = lastAnswer) {
             pointsTally++;
             clearInterval(timerInterval);
-
         }
 
         endQuiz();
@@ -170,7 +166,6 @@ function userChoice(event) {
             if (secondsLeft < 0) {
                 secondsLeft = 0;
             }
-
         }
 
         if (userGuess.value === rightAnswer) {
@@ -188,19 +183,37 @@ function endQuiz() {
 
     var scoreText = `End of quiz! Your score is ${pointsTally}/15, with ${secondsLeft} seconds remaining!`;
     var initialDiv = document.querySelector("#initials");
-    var initialBox = document.createElement("input");
+    initialBox = document.createElement("input");
     var timerBox = document.querySelector("#timer-container");
 
     timerBox.setAttribute("class", "hide");
     scoreBoard.removeAttribute("class");
     finalScore.textContent = scoreText.toString();
     initialDiv.appendChild(initialBox);
+
+    initialBox.setAttribute("placeholder", "YOUR INITALS HERE!");
     initialBox.setAttribute("class", "save-initials");
 
     console.log("the end quiz function works!");
     console.log(pointsTally);
 
 };
+
+saveButton.addEventListener("click", function () {
+    let initials = initialBox.value.trim();
+    console.log("initials = ", initials);
+
+    let highScores = JSON.parse(localStorage.getItem("user-score")) || [];
+    console.log("high score = ", highScores);
+    let newScore = {
+        score: secondsLeft,
+        tally: pointsTally,
+        initials: initials
+    }
+    highScores.push(newScore);
+    localStorage.setItem("user-score", JSON.stringify(highScores));
+    window.location.href = "hs.html";
+});
 
 
 
