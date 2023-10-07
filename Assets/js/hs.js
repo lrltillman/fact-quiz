@@ -9,7 +9,7 @@ let olEl = document.querySelector("#score-list");
 
 for (let i = 0; i < highScores.length; i++) {
     let listEl = document.createElement("li");
-    listEl.textContent = highScores[i].initials + " - time left " + highScores[i].score + " - points " + highScores[i].tally;
+    listEl.textContent = "Name: " + highScores[i].initials + " - Time left: " + highScores[i].score + " seconds - Points: " + highScores[i].tally;
 
     olEl.appendChild(listEl);
 
