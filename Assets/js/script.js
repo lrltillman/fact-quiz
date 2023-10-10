@@ -90,14 +90,6 @@ var quizQuestions = [
     },
 ]
 
-//TO DO STILL:
-// finish structuring the scoreboard in css and dynamically 
-// need to create way to save data
-//  a) need to create button dynamically to "save score"
-//  b) need to display initals and score once button pressed
-//  c) try again button
-//  d) review local storage units and notes
-
 startButton.addEventListener("click", startQuiz)
 
 function startQuiz() {
@@ -214,34 +206,3 @@ saveButton.addEventListener("click", function () {
     localStorage.setItem("user-score", JSON.stringify(highScores));
     window.location.href = "hs.html";
 });
-
-
-
-/* 
-
-1. Create an event listener for the start button that
-    a) begins the timer
-    b) populates the first multiple choice question 
-2. Create a timer that counts down at one second intervals, still need to create html
-3. Make an array of objects that contain quiz questions and answers
-    a) start with just 2 or three questions
-    b) need to create a function for populating a question
-    c) use event bubbling for a click on an answer 
-        -if correct, next question
-        -if incorrect, subtract 10 seconds from timer
-    d) will need to access array of questions
-4. create a data save value to auto save each answer
-5. a scoreboard and textbox where the user can save their initials and score
-
-GIVEN I am taking a code quiz
-WHEN I click the start button
-THEN a timer starts and I am presented with a question
-WHEN I answer a question
-THEN I am presented with another question
-WHEN I answer a question incorrectly
-THEN time is subtracted from the clock
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and my score   */
-
