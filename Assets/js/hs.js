@@ -9,14 +9,12 @@ let olEl = document.querySelector("#score-list");
 
 for (let i = 0; i < highScores.length; i++) {
     let listEl = document.createElement("li");
-    listEl.textContent = "Name: " + highScores[i].initials + " - Time left: " + highScores[i].score + " seconds - Points: " + highScores[i].tally;
+    listEl.textContent = "Name: " + highScores[i].name + " - Points: " + highScores[i].points;
 
     olEl.appendChild(listEl);
-
 }
 
 clearBtn.addEventListener("click", function () {
     localStorage.removeItem("user-score");
     window.location.reload();
-
-})
+});
